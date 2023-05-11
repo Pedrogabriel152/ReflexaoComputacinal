@@ -27,6 +27,24 @@ public class TesteReflexao {
 
         metodo.setAccessible(true);
 
+        if(memoriaComplexa > memoriaSimples){
+            Loja modificar = new Loja() {
+                @Override
+                public void realizarVenda(Produto produto, int quantCompra){
+                    int quant = produto.getQuantidade();
+                    if (quantCompra > quant || quant == 0) {
+                        System.out.println("Sem produtos suficientes no estoque");
+                        return;
+                    }
+    
+                    produto.setQuantidade(quant - quantCompra);
+                    System.out.println("Compra realizada com sucesso, Esta ainda no estoque no estoque: " + produto.getQuantidade());
+                }
+            };
+
+            loja = modificar;
+        }
+
         // Obtém o consumo de memória antes da execução do método
         MemoryUsage beforeMemoryUsage = memoryBean.getHeapMemoryUsage();
 

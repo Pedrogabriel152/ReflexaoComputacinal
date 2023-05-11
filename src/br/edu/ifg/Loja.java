@@ -15,18 +15,18 @@ public class Loja {
         this.setProdutos(produtos);
     }
 
+    // public void realizarVenda(Produto produto, int quantCompra) {
+    //     int quant = produto.getQuantidade();
+    //     if (quantCompra > quant || quant == 0) {
+    //         System.out.println("Sem produtos suficientes no estoque");
+    //         return;
+    //     }
+
+    //     produto.setQuantidade(quant - quantCompra);
+    //     System.out.println("Compra realizada com sucesso, restante no estoque: " + produto.getQuantidade());
+    // }
+
     public void realizarVenda(Produto produto, int quantCompra) {
-        int quant = produto.getQuantidade();
-        if (quantCompra > quant || quant == 0) {
-            System.out.println("Sem produtos suficientes no estoque");
-            return;
-        }
-
-        produto.setQuantidade(quant - quantCompra);
-        System.out.println("Compra realizada com sucesso, restante no estoque: " + produto.getQuantidade());
-    }
-
-    public void realizarVendaComplexa(Produto produto, int quantCompra) {
         HashMap<String, Produto> produtos = this.getProdutos();
         Boolean product = false;
 

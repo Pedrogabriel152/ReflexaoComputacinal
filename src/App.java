@@ -19,7 +19,8 @@ public class App {
         long memoriaComplexa = 0;
         long memoriaSimples = 0;
 
-        long memoria =  complexidade.calculaComplexidade(loja, camisa, memoriaComplexa, memoriaSimples);
-        System.out.println(memoria);
+        memoriaComplexa =  complexidade.calculaComplexidade(loja, camisa, memoriaComplexa, memoriaSimples);
+        
+        memoriaSimples = complexidade.calculaComplexidade(loja, camisa, memoriaComplexa, memoriaSimples);
     }
 }
