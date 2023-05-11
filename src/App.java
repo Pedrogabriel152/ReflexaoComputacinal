@@ -1,10 +1,25 @@
+import br.edu.ifg.Loja;
+import br.edu.ifg.Produto;
 import br.edu.ifg.TesteReflexao;
 
 public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         TesteReflexao complexidade = new TesteReflexao();
+        Loja loja = new Loja();
 
-        complexidade.calculaComplexidade();
+        Produto tenis = new Produto(10, 50, "Tenis", "Calcados");
+        loja.adicionaProduto(tenis);
+
+        Produto camisa = new Produto(50, 100, "Camisa", "Vestimento");
+        loja.adicionaProduto(camisa);
+
+
+        
+        long memoriaComplexa = 0;
+        long memoriaSimples = 0;
+
+        long memoria =  complexidade.calculaComplexidade(loja, camisa, memoriaComplexa, memoriaSimples);
+        System.out.println(memoria);
     }
 }

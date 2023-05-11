@@ -6,52 +6,44 @@ import java.lang.management.MemoryUsage;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 public class TesteReflexao {
-    public void calculaComplexidade()
+    public long calculaComplexidade(Loja loja, Produto produto, long memoriaComplexa, long memoriaSimples)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException,
             NoSuchFieldException {
-
-        Produto produto = new Produto(10, 5, "Game", "Jogo");
 
         // Obtém a instância do MemoryMXBean
         MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
 
         // Carrega a classe e obtém o objeto Class correspondente
-        Class<?> clazz = Produto.class;
-        Field valor = clazz.getDeclaredField("valor");
-        Field quantidade = clazz.getDeclaredField("quantidade");
-        Field nome = clazz.getDeclaredField("nome");
-        Field tipo = clazz.getDeclaredField("tipo");
+        Class<?> classe = Loja.class;
 
-        valor.setAccessible(true);
-        valor.setFloat(produto, 10);
-
-        System.out.println(produto.getValor());
         // Obtém o método desejado utilizando reflexão
-        // Method method = clazz.getMethod("getProdutos");
+        Method metodo = classe.getDeclaredMethod("realizarVenda", Produto.class, int.class);
 
-        // // Executa o garbage collector antes de medir o consumo de memória
-        // System.gc();
+        // Executa o garbage collector antes de medir o consumo de memória
+        System.gc();
 
-        // // Obtém o consumo de memória antes da execução do método
-        // MemoryUsage beforeMemoryUsage = memoryBean.getHeapMemoryUsage();
+        metodo.setAccessible(true);
 
-        // // Chama o método desejado
-        // method.invoke(null, produto, 1);
+        // Obtém o consumo de memória antes da execução do método
+        MemoryUsage beforeMemoryUsage = memoryBean.getHeapMemoryUsage();
 
-        // // Executa o garbage collector após a execução do método
-        // System.gc();
+        // Chama o método desejado
+        metodo.invoke(loja, produto, 2);
 
-        // // Obtém o consumo de memória após a execução do método
-        // MemoryUsage afterMemoryUsage = memoryBean.getHeapMemoryUsage();
+        // Executa o garbage collector após a execução do método
+        System.gc();
 
-        // // Calcula a diferença de consumo de memória
-        // long memoryUsageDiff = afterMemoryUsage.getUsed() -
-        // beforeMemoryUsage.getUsed();
+        // Obtém o consumo de memória após a execução do método
+        MemoryUsage afterMemoryUsage = memoryBean.getHeapMemoryUsage();
 
-        // // Imprime o resultado
-        // System.out.println("Consumo de memória do método: " + memoryUsageDiff + "
-        // bytes");
+        // Calcula a diferença de consumo de memória
+        long memoryUsageDiff = afterMemoryUsage.getUsed() - beforeMemoryUsage.getUsed();
+
+        // Imprime o resultado
+        System.out.println("Consumo de memória do método: " + memoryUsageDiff + " bytes");
+        return memoryUsageDiff;
     }
 }
