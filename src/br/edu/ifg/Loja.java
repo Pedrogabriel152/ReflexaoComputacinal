@@ -30,6 +30,8 @@ public class Loja {
         HashMap<String, Produto> produtos = this.getProdutos();
         Boolean product = false;
 
+        System.out.println("\n\nExecutou esse metodo");
+
         for (String key : produtos.keySet()) {
             Produto produtoExistente = produtos.get(key);
 
